@@ -35,6 +35,9 @@ $date3 = microtime(true);
 
 $findNumber = ((100000 + 1) * 50000) - $total;
 
+
+
+
 echo 'nombre à trouver : ' . $number . "\n";
 echo "vous avez trouvez : " . $findNumber . "\n";
 echo " total " . ($date2 - $date);
