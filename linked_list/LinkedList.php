@@ -16,21 +16,24 @@ class LinkedList
 
 	public function remove(Item $itemToRemove)
 	{
-			$item = $this->first;
-			while($item !== null) {
-				if($item === $itemToRemove) {
-					if(isset($lastItem)) {
-						$lastItem->setNext($item->getNext());
-					} else {
-						$this->first = $item->getNext();
-					}
-					break;
+		$item = $this->first;
+		while($item !== null) {
+			if($item === $itemToRemove) {
+				if (!isset($lastItem)) {
+					$this->first = $item->getNext();
+				} elseif ($item->getNext() !== null) {
+					$lastItem->setNext($item->getNext());
+				} else {
+					$lastItem->setNext(null);
 				}
-				$lastItem = $item;
-				$item = $item->getNext();
+				break;
 			}
-
+			$lastItem = $item;
+			$item = $item->getNext();
+		}
 	}
+
+
 
 	public function setFirst(Item $item)
 	{
@@ -48,4 +51,48 @@ class LinkedList
 			}
 		}
 	}
+
+	public function length() : int
+	{	
+		$length = 0;
+		$item = $this->first;
+		while($item !==null) {
+			$length ++;
+			$item = $item->getNext();
+		}
+		return $length;
+	}
+
+
+	public function reverse()
+	{
+		// $newFirst = null;
+		// When the length of the list is more then 0,we get the last, put it on the queue on an temp list and remove it  
+		while ($this->length() > 0) {
+			$item = $this->first;
+			while ($item !== null) {
+				if($item->getNext() === null)
+				{
+					break;
+				}
+				$item = $item->getNext();
+			}
+			
+			if(isset($newFirst)) {$newItem = $newFirst;
+			while($newItem !== null) {
+				if ($newItem->getNext() === null) {
+					break;
+				}
+				$newItem = $newItem->getNext();
+			}
+				$newItem->setNext($item);
+			} else {
+				$newFirst = $item;
+			}
+			$this->remove($item);
+		}
+		 // We update the first
+		$this->first = $newFirst;
+	}
+	// a>b>c>d>e
 }

@@ -33,7 +33,7 @@ class Item
 	}
 
 
-	public function setNext(Item $item)
+	public function setNext($item)
 	{
 		$this->next = $item;
 	}
