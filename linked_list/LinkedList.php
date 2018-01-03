@@ -2,40 +2,49 @@
 
 class LinkedList 
 {
-	private $list;
 
 	private $first;
 
-	private $last;
+	public function add(Item $newItem, Item $previous = null) {
+		if($this->first === null ){
+			$this->first = $newItem;
+		} else {
+			if($this->first === $previous) {
+				$newItem->setNext($this->first->getNext());
+				$this->first->setNext($newItem);
+			}
+			$item = $this->first->getNext();
+			$lastItem = $this->first;
 
-	public function add(Item $item) {
-		if($this->last !== null) {
-		// We adding the item to the last 
-		$this->last->setNext($item);
-		
-		}
-
-		// we put it in the list and we store it to the last
-		$this->list[] = $item;
-
-		$this->last =& $item;
-
-		// if first is null, we adding item to him
-		if($this->first === null) {
-			$this->first =& $item;
-		}
+			while($item !== null) {
+				if($item === $previous) {
+					$newItem->setNext($item->getNext());
+					$item->setNext($newItem);
+					break;
+				}
+				$lastItem = $item;
+				$item = $item->getNext();
+			}
+			if($previous === null) {
+				$lastItem->setNext($newItem);
+			}
+		} 
 	}
 
 	public function remove(Item $itemToRemove)
 	{
-		foreach ($this->list as $key => $item) {
-			if ($item === $itemToRemove) {
-				$previous = $this->getPrevious($itemToRemove);
-				$next = $this->getNext($itemToRemove);
-				if ($previous !== false && $next !== false) {
-					$previous->setNext($next);
+		if($this->first === $itemToRemove) {
+			$this->first = $itemToRemove->getNext();
+		} else {
+			$item = $this->first->getNext();
+			$lastItem = $this->first;
+			while($item !== null) {
+				if($item === $itemToRemove) {
+					$lastItem->setNext($itemToRemove->getNext());
+					break;
 				}
-				unset($this->list[$key]);
+				$lastItem = $item;
+				$item = $item->getNext();
 			}
 		}
 
@@ -43,7 +52,7 @@ class LinkedList
 
 	public function iterate()
 	{
-		if(!empty($this->list)) {
+		if($this->first !== null) {
 			echo $this->first->getContent() . "<br>";
 			$item = $this->first->getNext();
 			while ($item !== null) {
@@ -51,37 +60,5 @@ class LinkedList
 				$item = $item->getNext();
 			}
 		}
-	}
-
-	public function getPrevious($item)
-	{
-		foreach ($this->list as $itemPrevious) {
-			if($itemPrevious->getNext() === $item) {
-				return $itemPrevious;
-			}
-		}
-
-		return false;
-	}
-
-
-	public function getNext($item) 
-	{
-		foreach ($this->list as $next) {
-			if($next === $item->getNext()) {
-				return $next;
-			}
-		}
-		return false;
-	}
-
-	public function createItem(string $content)
-	{
-		$item = new Item($content);
-
-		if($this->last !== null ) {
-			$this->last->setNext($item);
-		}
-		$this->last =& $item;
 	}
 }

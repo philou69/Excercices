@@ -21,7 +21,7 @@ $list->remove($item2);
 
 $list->iterate();
 
-echo 'creating a new item on the list <br>';
-$list->createItem('text1');
-
+echo "adding item5 after item3";
+$item5 = new Item('test5');
+$list->add($item5, $item3);
 $list->iterate();

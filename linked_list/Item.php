@@ -12,12 +12,12 @@ class Item
 	 */
 	private $next;
 
-	function __construct(string $content, Item &$item = null)
+	function __construct(string $content, Item $item = null)
 	{
 		$this->content = $content;
 
 		if($item !== null) {
-			$this->next =& $item;
+			$this->next = $item;
 		}
 	}
 
@@ -33,9 +33,9 @@ class Item
 	}
 
 
-	public function setNext(Item &$item)
+	public function setNext(Item $item)
 	{
-		$this->next =& $item;
+		$this->next = $item;
 	}
 
 	public function getNext()
