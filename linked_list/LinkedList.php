@@ -2,48 +2,44 @@
 
 class LinkedList 
 {
-	private $list;
 
 	private $first;
 
-	private $last;
-
-	public function add(Item $item) {
-		if($this->last !== null) {
-		// We adding the item to the last 
-		$this->last->setNext($item);
+	public function add(Item $newItem, Item $previous) {
+		if($previous->getNext() !== null) {
+			$newItem->setNext($previous->getNext());
+		}
+		$previous->setNext($newItem);
 		
-		}
-
-		// we put it in the list and we store it to the last
-		$this->list[] = $item;
-
-		$this->last =& $item;
-
-		// if first is null, we adding item to him
-		if($this->first === null) {
-			$this->first =& $item;
-		}
 	}
 
 	public function remove(Item $itemToRemove)
 	{
-		foreach ($this->list as $key => $item) {
-			if ($item === $itemToRemove) {
-				$previous = $this->getPrevious($itemToRemove);
-				$next = $this->getNext($itemToRemove);
-				if ($previous !== false && $next !== false) {
-					$previous->setNext($next);
+			$item = $this->first;
+			while($item !== null) {
+				if($item === $itemToRemove) {
+					if(isset($lastItem)) {
+						$lastItem->setNext($item->getNext());
+					} else {
+						$this->first = $item->getNext();
+					}
+						
+					break;
 				}
-				unset($this->list[$key]);
+				$lastItem = $item;
+				$item = $item->getNext();
 			}
-		}
 
+	}
+
+	public function setFirst(Item $item)
+	{
+		$this->first = $item;
 	}
 
 	public function iterate()
 	{
-		if(!empty($this->list)) {
+		if($this->first !== null) {
 			echo $this->first->getContent() . "<br>";
 			$item = $this->first->getNext();
 			while ($item !== null) {
@@ -51,37 +47,5 @@ class LinkedList
 				$item = $item->getNext();
 			}
 		}
-	}
-
-	public function getPrevious($item)
-	{
-		foreach ($this->list as $itemPrevious) {
-			if($itemPrevious->getNext() === $item) {
-				return $itemPrevious;
-			}
-		}
-
-		return false;
-	}
-
-
-	public function getNext($item) 
-	{
-		foreach ($this->list as $next) {
-			if($next === $item->getNext()) {
-				return $next;
-			}
-		}
-		return false;
-	}
-
-	public function createItem(string $content)
-	{
-		$item = new Item($content);
-
-		if($this->last !== null ) {
-			$this->last->setNext($item);
-		}
-		$this->last =& $item;
 	}
 }
