@@ -37,6 +37,9 @@ class LinkedList
 
 	public function setFirst(Item $item)
 	{
+		if($this->first !== null) {
+			$item->setNext($this->first);
+		}
 		$this->first = $item;
 	}
 
@@ -66,33 +69,16 @@ class LinkedList
 
 	public function reverse()
 	{
-		// $newFirst = null;
-		// When the length of the list is more then 0,we get the last, put it on the queue on an temp list and remove it  
-		while ($this->length() > 0) {
-			$item = $this->first;
-			while ($item !== null) {
-				if($item->getNext() === null)
-				{
-					break;
-				}
-				$item = $item->getNext();
-			}
-			
-			if(isset($newFirst)) {$newItem = $newFirst;
-			while($newItem !== null) {
-				if ($newItem->getNext() === null) {
-					break;
-				}
-				$newItem = $newItem->getNext();
-			}
-				$newItem->setNext($item);
-			} else {
-				$newFirst = $item;
-			}
-			$this->remove($item);
+		$reverseList = new LinkedList();
+		$item = $this->first;
+		while($item !== null) {
+			$cloneItem = clone($item);
+			$cloneItem->setNext(null);
+			$reverseList->setFirst($cloneItem);
+			$item = $item->getNext();
 		}
-		 // We update the first
-		$this->first = $newFirst;
+
+		return $reverseList;
 	}
 	// a>b>c>d>e
 }

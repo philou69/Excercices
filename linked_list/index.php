@@ -36,5 +36,5 @@ echo 'remove item4 <br>';
 $list->remove($item4);
 $list->iterate();
 echo "lenght of the list " . $list->length() . "<br>";
-$list->reverse();
-$list->iterate();
+$listReverse = $list->reverse();
+$listReverse->iterate();
