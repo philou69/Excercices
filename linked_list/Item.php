@@ -38,7 +38,7 @@ class Item
 		$this->next =& $item;
 	}
 
-	public function getNext() : Item
+	public function getNext()
 	{
 		return $this->next;
 	}
