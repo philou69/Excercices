@@ -11,6 +11,7 @@ class LinkedList
 		}
 		$previous->setNext($newItem);
 		
+
 	}
 
 	public function remove(Item $itemToRemove)
@@ -23,7 +24,6 @@ class LinkedList
 					} else {
 						$this->first = $item->getNext();
 					}
-						
 					break;
 				}
 				$lastItem = $item;

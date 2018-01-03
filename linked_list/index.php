@@ -11,9 +11,7 @@ $item3 = new Item('test3');
 $item4 = new Item('test4');
 
 $list->setFirst($item4);
-var_dump($item4);
 $list->add($item3, $item4);
-var_dump($item4);
 $list->add($item2, $item3);
 $list->add($item1, $item2);
 $list->iterate();
@@ -33,4 +31,7 @@ $list->add($item6, $item4);
 $list->iterate();
 echo 'remove item4 <br>';
 $list->remove($item4);
+echo "adding item5 after item3";
+$item5 = new Item('test5');
+$list->add($item5, $item3);
 $list->iterate();
