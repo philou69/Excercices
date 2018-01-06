@@ -1,4 +1,5 @@
 <?php
+use Ds\Set;
 
 class LinkedList 
 {
@@ -80,5 +81,19 @@ class LinkedList
 
 		return $reverseList;
 	}
-	// a>b>c>d>e
+	
+	public function isCircular() : bool
+	{
+		$setItem = new Set();
+		$item = $this->first->getNext();
+		while($item !== null) {
+			if($setItem->contains($item)) {
+				return true;
+			} else {
+				$setItem->add($item);
+				$item = $item->getNext();
+			}
+		}
+		return false;
+	}
 }

@@ -1,5 +1,5 @@
 <?php 
-
+require 'vendor/autoload.php';
 require 'Item.php';
 require 'LinkedList.php';
 
@@ -38,3 +38,10 @@ $list->iterate();
 echo "lenght of the list " . $list->length() . "<br>";
 $listReverse = $list->reverse();
 $listReverse->iterate();
+echo $list->isCircular() ? "La liste est cicrulaire " : "la liste n'est pas circulaire";
+
+$item7 = new Item("test7", $item5);
+$list->add($item7, $item1);
+echo $list->isCircular() ? "La liste est cicrulaire " : "la liste n'est pas circulaire";
+
+// 9h30 
