@@ -9,10 +9,10 @@ $result;
 $index1 = 0;
 $index2 = 0;
 
-// We adding until the length of result = the sum of table1 + table 2
+// We add until the length of result = the length of table1 + table 2
 do {
-	// If one index egals the lenght of it array, we adding the rest of the other array and incresse the other index
-	// else we checking which is the small and adding him to result.
+	// If one index equals the length of its array, we add the remainder of the other array and increase the other index
+	// else we keep checking which is smallest and add it to result.
 	if($index1 == count($table1)) {
 			$result[] = $table2[$index2]; 
 			$index2++;
